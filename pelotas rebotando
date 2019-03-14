@@ -1,0 +1,94 @@
+
+
+var p =[];
+
+function setup() {
+  createCanvas(400, 400);
+  for (var i = 0; i < 100; i ++){
+  p[i] = new pelota();
+  }
+}
+
+function draw() {
+  background(p[0].R,p[1].G,p[2].B);
+  for (var i = 0; i < p.length; i ++){
+  p[i].dibujar();
+  p[i].mover();
+  p[i].salirx();
+  if(p[i].salirx() == true){
+   p[i].rebotarx();
+  }
+if(p[i].saliry() == true){
+   p[i].rebotary();
+  }
+  }
+}
+
+pelota.js
+class pelota {
+  constructor() {
+    this.x = 80;
+    this.y = 80;
+    this.dx = 50;
+    this.dy = 50;
+    this.velx = random(-10,10);
+    this.vely = random(-10,10);
+    this.R = random(0,255);
+    this.G = random(0,255);
+    this.B = random(0,255);
+  }
+
+  dibujar() {
+    fill(this.R,this.G,this.B,this.B)
+    noStroke();
+    ellipse(this.x, this.y, this.dx, this.dy);
+  }
+
+  mover() {
+    this.x = this.x + this.velx;
+    this.y = this.y + this.vely;
+  }
+
+  salirx() {
+    var salx;
+    if (this.x < 25 || this.x > width-25) {
+      salx = true;
+    } else {
+      salx = false;
+    }
+    return salx
+    
+  }
+  rebotarx(){
+   this.velx = (-1)*this.velx;
+  }
+  saliry() {
+    var saly;
+    if (this.y < 25 || this.y > width-25) {
+      saly = true;
+    } else {
+      saly = false;
+    }
+    return saly
+    
+  }
+  rebotary(){
+   this.vely = (-1)*this.vely;
+  }
+};
+index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <script src="sketch.js"></script>
+    <script src="pelota.js"></script>
+  </body>
+</html>
